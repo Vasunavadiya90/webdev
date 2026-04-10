@@ -7,7 +7,7 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/webdev/">
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/digital-flagship" element={<DigitalFlagship />} />
