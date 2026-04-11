@@ -18,20 +18,29 @@ const allThemeImages = [
   "https://cdn.shopify.com/theme-store/f9gnuq00d8njuc7ddt3bgvgohv8w.jpg?width=684",
 ];
 
-
 const portfolio = [
-  { brand: "KOHLER", desc: "Web design + Shopify development for a premium collection of home products", img: allThemeImages[0] },
-  { brand: "SMASH FOODS", desc: "Web design + Shopify development for a deliciously nutritious food brand", img: allThemeImages[1] },
-  { brand: "LUMAR ACTIVE", desc: "Web development + CRO for a high performance surfwear brand", img: allThemeImages[2] },
-  { brand: "VYBRANCE LABS", desc: "Web design + Shopify development for a performance supplement brand", img: allThemeImages[3] },
-  { brand: "COURTING", desc: "Web design + Shopify development for a contemporary tennis fashion brand", img: allThemeImages[4] },
-  { brand: "FREDERICK BENJAMIN", desc: "Web design + Shopify development for a natural grooming brand", img: allThemeImages[5] },
+  { brand: "KOHLER", desc: "Web design + Shopify development for premium home products", img: allThemeImages[0] },
+  { brand: "SMASH FOODS", desc: "Full Shopify build for a nutritious food brand", img: allThemeImages[1] },
+  { brand: "LUMAR ACTIVE", desc: "CRO + development for high-performance surfwear", img: allThemeImages[2] },
+  { brand: "VYBRANCE LABS", desc: "Design + Shopify for a supplement brand", img: allThemeImages[3] },
+  { brand: "COURTING", desc: "Contemporary e-commerce for tennis fashion", img: allThemeImages[4] },
+  { brand: "FREDERICK BENJAMIN", desc: "Full brand experience for natural grooming", img: allThemeImages[5] },
 ];
 
 const services = [
-  "New Brand Launches", "Store Overhauls", "Shopify Theme Customization",
-  "Shopify Migration", "Landing Page Design & Development",
-  "Product Page Optimization", "Conversion Rate Optimization", "Ongoing Growth Support",
+  { title: "Brand Launches", desc: "From zero to launch-ready in weeks", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg> },
+  { title: "Store Overhauls", desc: "Reimagine your digital storefront", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg> },
+  { title: "Theme Development", desc: "Custom Shopify themes built to convert", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> },
+  { title: "Migration", desc: "Seamless platform transitions", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> },
+  { title: "Landing Pages", desc: "High-converting page design & build", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg> },
+  { title: "CRO", desc: "Data-driven conversion optimization", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg> },
+];
+
+const stats = [
+  { value: 200, suffix: "+", label: "Projects Delivered" },
+  { value: 98, suffix: "%", label: "Client Retention" },
+  { value: 4.2, suffix: "x", label: "Avg Revenue Lift" },
+  { value: 12, suffix: "", label: "Countries Served" },
 ];
 
 const industries = [
@@ -41,14 +50,29 @@ const industries = [
   { label: "Food & Beverage", desc: "Debut Shopify storefronts for CPG brands, translating founder-led visions into scalable platforms.", img: allThemeImages[9] },
 ];
 
+function CursorGlow() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const h = (e) => {
+      if (ref.current) {
+        ref.current.style.setProperty("--cx", e.clientX + "px");
+        ref.current.style.setProperty("--cy", e.clientY + "px");
+      }
+    };
+    window.addEventListener("mousemove", h);
+    return () => window.removeEventListener("mousemove", h);
+  }, []);
+  return <div className="cursor-glow" ref={ref} />;
+}
+
 function useReveal() {
   const ref = useRef(null);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { el.classList.add("visible"); obs.unobserve(el); } },
-      { threshold: 0.1 }
+      ([e]) => { if (e.isIntersecting) { el.classList.add("vis"); obs.unobserve(el); } },
+      { threshold: 0.08 }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -59,7 +83,7 @@ function useReveal() {
 function Rev({ children, className = "", delay = 0 }) {
   const ref = useReveal();
   return (
-    <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>
+    <div ref={ref} className={`rv ${className}`} style={{ transitionDelay: `${delay}ms` }}>
       {children}
     </div>
   );
@@ -83,109 +107,158 @@ function useParallax() {
   return ref;
 }
 
+function Counter({ target, suffix = "" }) {
+  const ref = useRef(null);
+  const [val, setVal] = useState("0");
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      obs.unobserve(el);
+      const dur = 1600;
+      const start = performance.now();
+      const tick = (now) => {
+        const p = Math.min((now - start) / dur, 1);
+        const ease = 1 - Math.pow(1 - p, 4);
+        setVal((target * ease).toFixed(String(target).includes(".") ? 1 : 0));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, { threshold: 0.5 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [target]);
+  return <span ref={ref}>{val}{suffix}</span>;
+}
 
 export default function DigitalFlagship() {
   const [wordIdx, setWordIdx] = useState(0);
   const stripRef = useParallax();
 
   useEffect(() => {
-    const t = setInterval(() => setWordIdx((i) => (i + 1) % heroWords.length), 2000);
+    const t = setInterval(() => setWordIdx((i) => (i + 1) % heroWords.length), 2200);
     return () => clearInterval(t);
   }, []);
 
   return (
-    <div className="df">
+    <div className="site">
+      <CursorGlow />
 
-      <nav className="df-nav">
-        <div className="wrap df-nav-inner">
-          <Link to="/" className="df-logo">Pixel Templates</Link>
-          <div className="df-nav-links">
+      <nav className="nav">
+        <div className="w nav-inner">
+          <Link to="/" className="nav-logo">
+            <span className="nav-logo-icon" aria-hidden="true">
+              <span /><span /><span /><span />
+            </span>
+            <span className="nav-logo-text">Digital<br/>Flagship</span>
+          </Link>
+          <div className="nav-links">
             <a href="#work">Work</a>
             <a href="#services">Services</a>
-            <a href="#about">About</a>
+            <a href="#industries">About</a>
             <a href="#cta">Insights</a>
           </div>
-          <a href="#cta" className="df-nav-cta">Work With Us</a>
+          <a href="#cta" className="nav-cta">Work With Us</a>
         </div>
       </nav>
 
-      <header className="df-hero">
-        <div className="wrap df-hero-center">
-          <span className="df-hero-small">BUILT FOR</span>
+      <header className="hero hero--df">
+        <div className="w hero-inner hero-inner--df">
+          <p className="df-hero-kicker">Built for</p>
           <h1 className="df-hero-word" key={wordIdx}>{heroWords[wordIdx]}</h1>
-          <a href="#work" className="df-hero-btn">Work With Us</a>
-        </div>
-        <div className="wrap df-hero-desc">
-          <Rev>
-            <p>
-              We launch engaging ecommerce flagship experiences for brands shaping
-              what's next, from emerging consumer startups to billion dollar enterprises.
-            </p>
-          </Rev>
+          <p className="hero-desc">
+            We launch engaging ecommerce flagship experiences for brands shaping
+            what&rsquo;s next — from emerging startups to billion-dollar enterprises.
+          </p>
+          <div className="hero-actions">
+            <a href="#work" className="btn-main">View Our Work</a>
+            <a href="#services" className="btn-outline">Explore Services</a>
+          </div>
         </div>
       </header>
 
-      <section className="df-work" id="work">
-        <div className="wrap">
-          <Rev><p className="df-label">Selected Work</p></Rev>
-        </div>
-        <div className="df-port-grid wrap">
-          {portfolio.map((item, i) => (
-            <Rev key={item.brand} delay={i * 80}>
-              <PortfolioCard item={item} />
-            </Rev>
+      <section className="stats-bar">
+        <div className="w stats-row">
+          {stats.map((s) => (
+            <div key={s.label} className="stat-item">
+              <strong><Counter target={s.value} suffix={s.suffix} /></strong>
+              <span>{s.label}</span>
+            </div>
           ))}
         </div>
       </section>
 
-      <section className="df-services" id="services">
-        <div className="wrap">
+      <section className="work-section" id="work">
+        <div className="w">
           <Rev>
-            <h2 className="df-heading">
-              Helping you <span>Rise above</span> the current
-            </h2>
+            <p className="sec-label">Selected Work</p>
+            <h2 className="sec-heading">Crafting digital <em>experiences</em> that convert</h2>
           </Rev>
-          <Rev delay={60}>
-            <p className="df-sub">
-              From initial strategy to launch and ongoing refinement, we design
+          <div className="work-list">
+            {portfolio.map((item, i) => (
+              <Rev key={item.brand} delay={i * 70}>
+                <article className={`work-row ${i % 2 === 1 ? "work-row--flip" : ""}`}>
+                  <div className="work-row-img" style={{ backgroundImage: `url(${item.img})` }} />
+                  <div className="work-row-body">
+                    <span className="work-row-tag">Case Study</span>
+                    <h3>{item.brand}</h3>
+                    <p>{item.desc}</p>
+                    <span className="work-row-link">View Project →</span>
+                  </div>
+                </article>
+              </Rev>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="svc-section" id="services">
+        <div className="w">
+          <Rev>
+            <p className="sec-label">What We Do</p>
+            <h2 className="sec-heading">Helping you <em>rise above</em> the noise</h2>
+            <p className="sec-desc">
+              From initial strategy to launch and ongoing refinement — we design
               and develop ecommerce storefronts built to lead, evolve, and move
               with your business.
             </p>
           </Rev>
-          <Rev delay={120}>
-            <div className="df-tags">
-              {services.map((s) => <span key={s} className="df-tag">{s}</span>)}
-            </div>
-          </Rev>
-          <Rev delay={180}>
-            <a href="#cta" className="df-text-link">Explore Services &rarr;</a>
-          </Rev>
+          <div className="svc-grid">
+            {services.map((s, i) => (
+              <Rev key={s.title} delay={i * 60}>
+                <div className="svc-card">
+                  <div className="svc-icon">{s.icon}</div>
+                  <h3>{s.title}</h3>
+                  <p>{s.desc}</p>
+                </div>
+              </Rev>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="df-strip">
-        <div className="df-strip-track" ref={stripRef}>
+      <section className="strip-section">
+        <div className="strip-track" ref={stripRef}>
           {[...allThemeImages, ...allThemeImages].map((src, i) => (
-            <div key={i} className="df-strip-img" style={{ backgroundImage: `url(${src})` }} />
+            <div key={i} className="strip-img" style={{ backgroundImage: `url(${src})` }} />
           ))}
         </div>
       </section>
 
-      <section className="df-about" id="about">
-        <div className="wrap">
+      <section className="ind-section" id="industries">
+        <div className="w">
           <Rev>
-            <h2 className="df-heading">
-              Scaling the <span>next wave</span> of consumer brands
-            </h2>
-            <p className="df-sub">Select partners and brands we've built alongside</p>
+            <p className="sec-label">Industries</p>
+            <h2 className="sec-heading">Scaling the <em>next wave</em> of consumer brands</h2>
           </Rev>
-          <div className="df-ind-grid">
+          <div className="ind-grid">
             {industries.map((ind, i) => (
-              <Rev key={ind.label} delay={i * 100}>
-                <article className="df-ind-card">
-                  <div className="df-ind-img" style={{ backgroundImage: `url(${ind.img})` }} />
-                  <div className="df-ind-body">
-                    <span className="df-ind-pill">{ind.label}</span>
+              <Rev key={ind.label} delay={i * 80}>
+                <article className="ind-card">
+                  <div className="ind-img" style={{ backgroundImage: `url(${ind.img})` }} />
+                  <div className="ind-body">
+                    <span className="ind-pill">{ind.label}</span>
                     <p>{ind.desc}</p>
                   </div>
                 </article>
@@ -195,57 +268,58 @@ export default function DigitalFlagship() {
         </div>
       </section>
 
-      <section className="df-cta" id="cta">
-        <div className="wrap">
+      <section className="quote-section">
+        <div className="w">
           <Rev>
-            <div className="df-cta-box">
-              <h2><span>Elevate your</span> digital flagship</h2>
-              <a href="mailto:hello@webibazaar.com" className="df-hero-btn">Get In Touch</a>
+            <blockquote className="big-quote">
+              <p>&ldquo;Pixel Templates transformed our online presence. The flagship experience they built increased conversions by 42% in the first quarter.&rdquo;</p>
+              <footer>
+                <strong>Daniel Kim</strong>
+                <span>Founder, Vybrance Labs</span>
+              </footer>
+            </blockquote>
+          </Rev>
+        </div>
+      </section>
+
+      <section className="cta-section" id="cta">
+        <div className="w">
+          <Rev>
+            <div className="cta-box">
+              <h2>Ready to elevate your digital flagship?</h2>
+              <p>Join 200+ brands who trust us to build their ecommerce experiences.</p>
+              <a href="mailto:hello@webibazaar.com" className="btn-main btn-main--inv">Get In Touch</a>
             </div>
           </Rev>
         </div>
       </section>
 
-      <footer className="df-footer">
-        <div className="wrap df-footer-inner">
-          <div className="df-footer-col">
-            <h4>Services</h4>
-            <a href="#services">Themelift</a>
-            <a href="#work">Work</a>
+      <footer className="footer">
+        <div className="w footer-inner">
+          <div className="footer-brand">
+            <strong>Pixel Templates</strong>
+            <p>Premium ecommerce experiences for modern brands.</p>
           </div>
-          <div className="df-footer-col">
-            <h4>Company</h4>
-            <a href="#about">About</a>
-            <a href="#cta">Contact</a>
-          </div>
-          <div className="df-footer-col">
-            <h4>Legal</h4>
-            <a href="#cta">Privacy Policy</a>
-            <a href="#cta">Terms of Service</a>
-          </div>
-          <div className="df-footer-col">
-            <h4>Navigate</h4>
-            <Link to="/">Home</Link>
-            <a href="#work">Portfolio</a>
+          <div className="footer-cols">
+            <div>
+              <h5>Services</h5>
+              <a href="#services">Theme Dev</a>
+              <a href="#services">Overhauls</a>
+              <a href="#work">Portfolio</a>
+            </div>
+            <div>
+              <h5>Company</h5>
+              <a href="#industries">Industries</a>
+              <a href="#cta">Contact</a>
+              <Link to="/">Home</Link>
+            </div>
           </div>
         </div>
-        <div className="wrap df-footer-bottom">
-          <p>&copy; 2026 Pixel Templates Studio. All rights reserved.</p>
+        <div className="w footer-bottom">
+          <span>&copy; 2026 Pixel Templates Studio. All rights reserved.</span>
         </div>
       </footer>
     </div>
   );
 }
 
-function PortfolioCard({ item }) {
-  const ref = useParallax();
-  return (
-    <article className="df-port-card" ref={ref}>
-      <div className="df-port-img" style={{ backgroundImage: `url(${item.img})` }} />
-      <div className="df-port-over">
-        <h3>{item.brand}</h3>
-        <p>{item.desc}</p>
-      </div>
-    </article>
-  );
-}
