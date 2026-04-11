@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 52" fill="none" role="img" aria-labelledby="ptl">
+  <title id="ptl">Pixel Template</title>
+  <!-- Pixel mark: lavender cross + blue X -->
+  <g transform="translate(4,4)">
+    <g fill="#e9d5ff">
+      <rect x="16" y="0" width="8" height="8" rx="0.5"/>
+      <rect x="16" y="32" width="8" height="8" rx="0.5"/>
+      <rect x="0" y="16" width="8" height="8" rx="0.5"/>
+      <rect x="32" y="16" width="8" height="8" rx="0.5"/>
+    </g>
+    <g fill="#2563eb">
+      <rect x="0" y="0" width="8" height="8" rx="0.5"/>
+      <rect x="8" y="8" width="8" height="8" rx="0.5"/>
+      <rect x="16" y="16" width="8" height="8" rx="0.5"/>
+      <rect x="24" y="24" width="8" height="8" rx="0.5"/>
+      <rect x="32" y="32" width="8" height="8" rx="0.5"/>
+      <rect x="32" y="0" width="8" height="8" rx="0.5"/>
+      <rect x="24" y="8" width="8" height="8" rx="0.5"/>
+      <rect x="8" y="24" width="8" height="8" rx="0.5"/>
+      <rect x="0" y="32" width="8" height="8" rx="0.5"/>
+    </g>
+  </g>
+  <text x="56" y="24" fill="#0a0a0a" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="20" font-weight="800" letter-spacing="-0.02em">Pixel</text>
+  <text x="56" y="44" fill="#0a0a0a" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="11" font-weight="500" letter-spacing="0.42em">Template</text>
+</svg>
