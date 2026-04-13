@@ -3,11 +3,6 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Headphones, Menu, Search, X } from "lucide-react";
 import NavBrand from "../shared/NavBrand.jsx";
-
-const hashLinksBeforeServices = [
-  { label: "Features", to: "/#features" },
-  { label: "Showcase", to: "/#showcase" },
-];
 const hashLinksAfterServices = [
   { label: "Stories", to: "/#testimonials" },
   { label: "Pricing", to: "/#convert" },
@@ -29,8 +24,9 @@ export default function Navbar() {
 
   const home = location.pathname === "/";
   const onServices = location.pathname.startsWith("/services");
+  const onThemes = location.pathname.startsWith("/themes");
   const hash = location.hash || "";
-  const navSolid = scrolled || onServices;
+  const navSolid = scrolled || onServices || onThemes;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -73,13 +69,14 @@ export default function Navbar() {
         <NavBrand variant="nav" />
 
         <ul className="hidden min-w-0 items-center justify-center gap-6 lg:gap-9 md:flex">
-          {hashLinksBeforeServices.map((l) => (
-            <li key={l.to}>
-              <Link to={l.to} className={hashLinkClass(`#${l.to.split("#")[1]}`)}>
-                {l.label}
-              </Link>
-            </li>
-          ))}
+          <li>
+            <NavLink
+              to="/themes"
+              className={({ isActive }) => `${linkBase} ${isActive ? linkActive : linkMuted}`}
+            >
+              Themes
+            </NavLink>
+          </li>
           <li>
             <NavLink
               to="/services"
@@ -137,7 +134,7 @@ export default function Navbar() {
             role="search"
             onSubmit={(e) => {
               e.preventDefault();
-              if (query.trim()) navigate("/#showcase");
+              if (query.trim()) navigate("/themes");
               setSearchOpen(false);
             }}
           >
@@ -171,17 +168,15 @@ export default function Navbar() {
           className="border-b border-neutral-200 bg-white/95 px-5 py-6 backdrop-blur-xl md:hidden"
         >
           <ul className="flex flex-col gap-4">
-            {hashLinksBeforeServices.map((l) => (
-              <li key={l.to}>
-                <Link
-                  to={l.to}
-                  className="block text-lg font-medium text-neutral-800"
-                  onClick={() => setOpen(false)}
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
+            <li>
+              <NavLink
+                to="/themes"
+                className="block text-lg font-medium text-neutral-800"
+                onClick={() => setOpen(false)}
+              >
+                Themes
+              </NavLink>
+            </li>
             <li>
               <NavLink
                 to="/services"

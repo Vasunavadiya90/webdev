@@ -7,7 +7,7 @@ export default function ProcessTimeline({ steps, className = "" }) {
         className="absolute left-[15px] top-3 bottom-3 w-px bg-gradient-to-b from-emerald-200/80 via-neutral-200 to-neutral-200 sm:left-5"
         aria-hidden
       />
-      {steps.map((s, i) => (
+      {steps.map((s,  i) => (
         <motion.li
           key={s.step}
           initial={{ opacity: 0, x: -12 }}
