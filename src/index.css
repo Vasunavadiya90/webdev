@@ -5,8 +5,17 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
     @apply m-0 antialiased bg-white text-neutral-900;
+  }
+  button, [role="button"] {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:focus-visible, [role="button"]:focus-visible {
+    outline: 2px solid #1A1A2E;
+    outline-offset: 2px;
   }
 }

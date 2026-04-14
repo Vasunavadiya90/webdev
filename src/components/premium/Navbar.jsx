@@ -3,16 +3,11 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Headphones, Menu, Search, X } from "lucide-react";
 import NavBrand from "../shared/NavBrand.jsx";
+
 const hashLinksAfterServices = [
   { label: "Stories", to: "/#testimonials" },
   { label: "Pricing", to: "/#convert" },
 ];
-const linkBase = "text-sm font-medium transition hover:text-neutral-950";
-const linkMuted = "text-neutral-600";
-const linkActive = "text-neutral-950";
-
-const btnClass =
-  "inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white/90 px-4 py-2.5 text-sm font-semibold text-neutral-800 shadow-sm transition hover:border-neutral-300 hover:bg-neutral-50";
 
 export default function Navbar() {
   const location = useLocation();
@@ -23,10 +18,7 @@ export default function Navbar() {
   const [query, setQuery] = useState("");
 
   const home = location.pathname === "/";
-  const onServices = location.pathname.startsWith("/services");
-  const onThemes = location.pathname.startsWith("/themes");
   const hash = location.hash || "";
-  const navSolid = scrolled || onServices || onThemes;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -37,32 +29,34 @@ export default function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [open]);
 
   useEffect(() => {
     if (!searchOpen) return;
-    const onKey = (e) => {
-      if (e.key === "Escape") setSearchOpen(false);
-    };
+    const onKey = (e) => { if (e.key === "Escape") setSearchOpen(false); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [searchOpen]);
 
+  const linkBase = "text-sm font-medium transition-colors duration-300 text-neutral-500 hover:text-[#1A1A2E]";
+  const linkActiveClass = "text-sm font-medium transition-colors duration-300 text-[#1A1A2E]";
+
   const hashLinkClass = (targetHash) =>
-    `${linkBase} ${home && hash === targetHash ? linkActive : linkMuted}`;
+    `${home && hash === targetHash ? linkActiveClass : linkBase}`;
+
+  const btnClass =
+    "inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-200/80 bg-white/80 px-4 py-2.5 text-sm font-semibold text-neutral-700 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-neutral-300 hover:bg-white hover:text-[#1A1A2E]";
 
   return (
     <motion.header
       initial={{ y: -8, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed inset-x-0 top-0 z-50 transition-[background,box-shadow,border-color] duration-500 ${
-        navSolid
-          ? "border-b border-neutral-200/80 bg-white/80 shadow-sm backdrop-blur-xl"
-          : "border-b border-transparent bg-white/40 backdrop-blur-md md:bg-transparent md:backdrop-blur-none"
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-[background,border-color,box-shadow] duration-500 ${
+        scrolled
+          ? "border-neutral-200/80 bg-[#F5F5F0]/85 shadow-sm shadow-neutral-900/[0.04] backdrop-blur-2xl"
+          : "border-neutral-200/40 bg-[#F5F5F0]/60 backdrop-blur-xl"
       }`}
     >
       <nav className="mx-auto grid min-h-[76px] w-full max-w-7xl grid-cols-[1fr_auto] items-center gap-3 px-5 sm:px-8 sm:min-h-[80px] md:min-h-[96px] md:grid-cols-[auto_minmax(0,1fr)_auto] md:gap-4 md:py-1 lg:min-h-[100px] lg:px-10">
@@ -72,7 +66,7 @@ export default function Navbar() {
           <li>
             <NavLink
               to="/themes"
-              className={({ isActive }) => `${linkBase} ${isActive ? linkActive : linkMuted}`}
+              className={({ isActive }) => isActive ? linkActiveClass : linkBase}
             >
               Themes
             </NavLink>
@@ -80,7 +74,7 @@ export default function Navbar() {
           <li>
             <NavLink
               to="/services"
-              className={({ isActive }) => `${linkBase} ${isActive ? linkActive : linkMuted}`}
+              className={({ isActive }) => isActive ? linkActiveClass : linkBase}
             >
               Services
             </NavLink>
@@ -114,7 +108,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="inline-flex rounded-full border border-neutral-200/90 bg-white/60 p-2.5 text-neutral-800 backdrop-blur md:hidden"
+            className="inline-flex rounded-full border border-neutral-200/80 bg-white/70 p-2.5 text-neutral-700 backdrop-blur transition-colors duration-300 hover:bg-white hover:text-[#1A1A2E] md:hidden"
             aria-expanded={open}
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((v) => !v)}
@@ -127,7 +121,7 @@ export default function Navbar() {
       {searchOpen && (
         <div
           id="site-search-panel"
-          className="border-b border-neutral-200 bg-white px-4 py-3 shadow-md sm:px-8"
+          className="border-b border-neutral-200 bg-white/95 px-4 py-3 shadow-md backdrop-blur-xl sm:px-8"
         >
           <form
             className="mx-auto flex max-w-7xl items-center gap-3 lg:px-10"
@@ -201,10 +195,7 @@ export default function Navbar() {
               <button
                 type="button"
                 className={`${btnClass} w-full`}
-                onClick={() => {
-                  setOpen(false);
-                  setSearchOpen(true);
-                }}
+                onClick={() => { setOpen(false); setSearchOpen(true); }}
               >
                 <Search className="h-4 w-4 shrink-0" strokeWidth={2} />
                 Search

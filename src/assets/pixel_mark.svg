@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none" role="img" aria-hidden="true">
-  <g fill="#e9d5ff">
-    <rect x="16" y="0" width="8" height="8" rx="0.5"/>
-    <rect x="16" y="32" width="8" height="8" rx="0.5"/>
-    <rect x="0" y="16" width="8" height="8" rx="0.5"/>
-    <rect x="32" y="16" width="8" height="8" rx="0.5"/>
+  <g fill="#00B386" opacity="0.3">
+    <rect x="16" y="0" width="8" height="8" rx="1"/>
+    <rect x="16" y="32" width="8" height="8" rx="1"/>
+    <rect x="0" y="16" width="8" height="8" rx="1"/>
+    <rect x="32" y="16" width="8" height="8" rx="1"/>
   </g>
-  <g fill="#2563eb">
-    <rect x="0" y="0" width="8" height="8" rx="0.5"/>
-    <rect x="8" y="8" width="8" height="8" rx="0.5"/>
-    <rect x="16" y="16" width="8" height="8" rx="0.5"/>
-    <rect x="24" y="24" width="8" height="8" rx="0.5"/>
-    <rect x="32" y="32" width="8" height="8" rx="0.5"/>
-    <rect x="32" y="0" width="8" height="8" rx="0.5"/>
-    <rect x="24" y="8" width="8" height="8" rx="0.5"/>
-    <rect x="8" y="24" width="8" height="8" rx="0.5"/>
-    <rect x="0" y="32" width="8" height="8" rx="0.5"/>
+  <g fill="#1A1A2E">
+    <rect x="0" y="0" width="8" height="8" rx="1"/>
+    <rect x="8" y="8" width="8" height="8" rx="1"/>
+    <rect x="16" y="16" width="8" height="8" rx="1"/>
+    <rect x="24" y="24" width="8" height="8" rx="1"/>
+    <rect x="32" y="32" width="8" height="8" rx="1"/>
+    <rect x="32" y="0" width="8" height="8" rx="1"/>
+    <rect x="24" y="8" width="8" height="8" rx="1"/>
+    <rect x="8" y="24" width="8" height="8" rx="1"/>
+    <rect x="0" y="32" width="8" height="8" rx="1"/>
   </g>
 </svg>

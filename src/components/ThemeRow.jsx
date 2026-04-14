@@ -36,7 +36,7 @@ function PreviewImage({ src, alt, gradientFrom, gradientTo }) {
       {/* Gradient fallback — visible while loading or on error */}
       <div
         className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${loaded && !error ? "opacity-0" : "opacity-100"}`}
-        style={{ background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})` }}
+        // style={{ background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})` }}
       >
         <span className="select-none font-display text-2xl font-semibold text-white/70 sm:text-3xl">
           {alt}
@@ -91,12 +91,12 @@ export default function ThemeRow({ theme, index }) {
             type="button"
             onClick={() => setActive(i)}
             aria-label={`Preview "${preset.name}" preset`}
-            className={`group relative overflow-hidden rounded-xl transition-all duration-200 ${
+            className={`group relative overflow-hidden rounded-xl outline-none transition-all duration-200 ${
               active === i
                 ? "ring-2 ring-[#1A1A2E] ring-offset-2"
                 : "opacity-75 hover:opacity-100"
             }`}
-            style={{ aspectRatio: "4/3" }}
+            style={{ aspectRatio: "4/3", WebkitTapHighlightColor: "transparent" }}
           >
             <PreviewImage
               src={preset.image}
